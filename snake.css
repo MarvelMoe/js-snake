@@ -1,0 +1,43 @@
+
+* {
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	background: #bbb;
+}
+
+
+#gameinfo {
+	border: 1px solid red;
+}
+
+
+#playarea {
+	border: 3px solid #777;
+	margin: 10px auto;
+	position: relative;
+}
+
+
+.cell {
+	position: absolute;
+	/* display: inline-block;  */
+	background: #ccc;
+	margin: 0;
+}
+
+
+
+.cell-empty {
+	background: #ccc;
+}
+
+.cell-snake {
+	background: red;
+}
+
+.cell-food {
+	background: green;
+}
