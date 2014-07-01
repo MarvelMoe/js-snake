@@ -33,7 +33,7 @@ header {
 	top: 20px;
 	right: 15px;
 	margin: 0 auto;
-	border: 1px solid blue;
+	/* border: 1px solid blue;  */
 	text-align: center;
 	border-radius: 7px;
 	background: white;

@@ -20,18 +20,28 @@ The challenge calls for :
 
 	To get by ineffeciencies such as searching through a possible 1600 divs for the correct one, I implement a cache systems that cuts that number down to at most a search of 40.
 
+In the interest of simplicity, I tried to keep the project to a minimum.   It's tempting to want to make the presentation of the Snake much nicer, with more animation, etc...  but the goal of the exercise is to implement the algorithm that runs the game.   Since the implementation of the UI involves div's; I went out of my way to implment a simple caching system so that searching the DOM for one of a possible 40 * 40 = 1600 cells is not so in-efficient; without which I really would've wanted instead to use canvas or something else.
+
+---
 
 
-TODO:
+Somewhat prioritized TODO list:
 
+- Fix score display
+
+- Fix speed display
+
+- Don't let snake go over itself
+
+- Implement button to make 'Deadly Edges'
+
+- Implement a way to resize play area  (and have images/effects scale well)
 
 - Add graphic images to snake body & food
 
 	At first simple images, then animated 
 
-- Don't let snake go over itself
 
-- Implement button to make 'Deadly Edges'
 
 
 

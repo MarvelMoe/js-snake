@@ -10,7 +10,7 @@ $(function() {
         var $playarea = $('#playarea');         // Cache access to game play area                             
         var $gameStats = $('#gameStats');
         var $rowCache = [];
-        var cellSize = 10;
+        var cellSize = 20;
         var snakeCells = [];
         var foodCell = [];
 
