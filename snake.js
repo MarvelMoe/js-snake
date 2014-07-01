@@ -146,6 +146,7 @@ $(function() {
         var timeoutID;              // for setTimeout()
 
 
+        // Called by keyPress(); Parse what key was pressed; change directions of snake if appropriate.
         var handleKeyStroke = function( key ) {
             // up:38, down: 40, right:39, left: 37,    32: space,  27:esc
             if ( key !== direction ) {              // if arrow key pressed was not in same direction as we are already going
@@ -172,13 +173,18 @@ $(function() {
                         return;                                                                           
                     default:
                         // all non-direction keys should leave direction as what it was
-                        console.log("handleKeyStroke : " + key);
                         return;
                 }
 
-                direction = key;
+                // Unless the new direction is the exact opposition of current direction, set current direction to the new one.
+                if ( ( ! ( direction === 38 && key === 40 ) ) &&    // up down
+                     ( ! ( direction === 40 && key === 38 ) ) &&
+                     ( ! ( direction === 39 && key === 37 ) ) &&    // left right
+                     ( ! ( direction === 37 && key === 39 ) ) 
+                    ) {                     
+                    direction = key;
+                }
             }   
-            
         };
 
 
