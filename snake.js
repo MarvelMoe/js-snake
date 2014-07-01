@@ -8,7 +8,7 @@ $(function() {
     // Displays the game.  The 'View' of this app; tied to implementation via JQuery.
     var displayer = function() {
         var $playarea = $('#playarea');         // Cache access to game play area                             
-        var $gameinfo = $('#gameinfo');
+        var $gameStats = $('#gameStats');
         var $rowCache = [];
         var cellSize = 10;
         var snakeCells = [];
@@ -42,7 +42,7 @@ $(function() {
         };
 
         var showStats = function( score, speed ) {
-            $gameinfo.text( 'Score: ' + score + ' -- Speed: ' + speed );
+            $gameStats.text( 'Score: ' + score + ' -- Speed: ' + speed );
         };
 
 
@@ -193,7 +193,7 @@ $(function() {
             direction = 0;                      // Not moving yet.
             bStarted = false;
             score = 0;
-            speed = 300;                        // Initial starting speed of game
+            speed = 100;                        // Initial starting speed of game
             foodAvailable = false;
             displayer.showStats( score, speed );
         };
@@ -273,8 +273,9 @@ $(function() {
 
             if ( nextCell[ 0 ] === foodX && nextCell[ 1 ] === foodY ) {  // check to see if snake head is on the food
                 score += 10;
-                speed = ( speed > 200 ) ? Math.floor( speed * 0.9 ) : 150;
+                speed = ( speed > 20 ) ? Math.floor( speed * 0.9 ) : 20;
                 displayer.eatFood();
+                displayer.showStats( score, speed );
                 foodAvailable = false;
             }
             else {

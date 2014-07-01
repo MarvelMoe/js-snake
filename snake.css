@@ -9,23 +9,34 @@ body {
 	font-family: sans-serif;
 }
 
+
 header {
 	background: white;
 	opacity: .85;
+	padding: 15px;
 }
 
 #gameinfo {
 	background: #ccc;
 	opacity: .85;
 	border: 1px solid red;
-	text-align: center;
+
 	padding: 15px;
 }
+
+#gameStats {
+	width: 400px;
+	margin: 0 auto;
+	text-align: center;
+	font-family: monospace;
+	font-size: 2em;
+}
+
 
 
 #playarea {
 	border: 3px solid #777;
-	margin: 10px auto;
+	margin: 30px auto;
 	position: relative;
 }
 
