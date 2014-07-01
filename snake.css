@@ -5,12 +5,21 @@
 }
 
 body {
-	background: #bbb;
+	background: url(./img/snakeskin1.jpg) repeat;
+	font-family: sans-serif;
 }
 
+header {
+	background: white;
+	opacity: .85;
+}
 
 #gameinfo {
+	background: #ccc;
+	opacity: .85;
 	border: 1px solid red;
+	text-align: center;
+	padding: 15px;
 }
 
 
