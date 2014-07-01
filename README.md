@@ -16,7 +16,9 @@ The challenge calls for
 
 - A grid of 40 by 40.  
 
-- Using <div>'s for the grid play area.
+- Using multiple div html element for the grid play area.
+
+	To get by ineffeciencies such as searching through a possible 1600 divs for the correct one, I implement a cache systems that cuts that number down to at most a search of 40.
 
 
 
