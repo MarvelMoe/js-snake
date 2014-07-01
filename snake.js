@@ -8,9 +8,9 @@ $(function() {
     // Displays the game.  The 'View' of this app; tied to implementation via JQuery.
     var displayer = function() {
         var $playarea = $('#playarea');         // Cache access to game play area                             
-        var $gameStats = $('#gameStats');
+        var $score = $('#score');
         var $rowCache = [];
-        var cellSize = 20;
+        var cellSize = 20;                      //  How big each cell is
         var snakeCells = [];
         var foodCell = [];
 
@@ -42,7 +42,7 @@ $(function() {
         };
 
         var showStats = function( score, speed ) {                           // Put up game stats
-            // $gameStats.text( 'Score: ' + score + ' -- Speed: ' + speed );
+            $score.text( 'Score: ' + score + ' -- Speed: ' + speed );
         };
 
 
@@ -129,7 +129,7 @@ $(function() {
     var snake = function() {
         // Game Constants
         var gameDimensions = 40;    // Number of rows and columns that make up the game grid
-        var initialSpeed = 150;     // Starting spped of game  (higher numbers are slower)
+        var initialSpeed = 250;     // Starting spped of game  (higher numbers are slower)
         var maxSpeed = 20;          // Fastest game can go
         var foodValue = 10;         // How much to increase score by each time food is eaten
 
@@ -283,7 +283,7 @@ $(function() {
             // Check snake-head and food collision (to eat the food) 
             if ( nextCell[ 0 ] === foodX && nextCell[ 1 ] === foodY ) {  
                 score += foodValue;
-                speed = ( speed > maxSpeed ) ? Math.floor( speed * 0.9 ) : maxSpeed;
+                speed = ( speed > maxSpeed ) ? Math.floor( speed * 0.95 ) : maxSpeed;
                 displayer.eatFood();
                 displayer.showStats( score, speed );
                 foodAvailable = false;                                  // so that new food is generated next call to takeTurn()

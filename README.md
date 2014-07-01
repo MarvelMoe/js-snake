@@ -1,4 +1,4 @@
-## Yet another implementation of the game Snake
+## Yet another Snake game implementation
 
 #### An Odin Project challenge to flex some JS, JQuery, ...
 
