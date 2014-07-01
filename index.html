@@ -26,11 +26,21 @@
 					Use <strong>Arrow keys</strong> to turn direction</br>
 					<strong>ESC</strong> to abort game</br>
 				</small>
+
 			</div>
-			<div id = "gameStats">
+			<div id = "gameStats" class = "shadow" >
+				<p class = "bigBold" ><span id = "score" >Score: </span> -- <span id = "speed" >Speed: </span></p>
+
+				<form id = "optionCheckboxes" >
+					<fieldset>
+					<legend></legend>
+					<input type="checkbox" name="edges" value="noEdges" /> Deadly Edges<br />
+					<input type="checkbox" name="sound" value="soundOn" /> Sound<br />
+					</fieldset>
+				</form>				
 			</div>
 		</div>
-		<div id = "playarea"></div>
+		<div id = "playarea" class = "shadow" ></div>
 	</section>
 
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>

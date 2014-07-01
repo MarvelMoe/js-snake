@@ -42,7 +42,7 @@ $(function() {
         };
 
         var showStats = function( score, speed ) {                           // Put up game stats
-            $gameStats.text( 'Score: ' + score + ' -- Speed: ' + speed );
+            // $gameStats.text( 'Score: ' + score + ' -- Speed: ' + speed );
         };
 
 
