@@ -41,22 +41,23 @@ $(function() {
             eraseSnake();
         };
 
-        var showStats = function( score, speed ) {
+        var showStats = function( score, speed ) {                           // Put up game stats
             $gameStats.text( 'Score: ' + score + ' -- Speed: ' + speed );
         };
 
 
+        // showSnake kept a list of what cells the snake occupies, eraseSnake() will go through the list and empty them out
         var eraseSnake = function() {
             for ( var i = 0; i < snakeCells.length; i += 1 ) {
-                snakeCells[i][2].removeClass( 'cell-snake' ); // .addClass( 'cell-empty' );
-                console.log('erasing snake part number ' + i);
-                snakeCells.splice(i, 1);     // take this element out of the array
+                snakeCells[i][2].removeClass( 'cell-snake' );               // stored JQuery selector of this piece
+                snakeCells.splice(i, 1);                                    // take this element out of the array
             }            
-
         };
 
 
-        var accessHandleTo = function ( x, y ) {            // With this, searching for a div is a matter of seraching 40 instead of 1600, :-)
+        // Uses caching scheme to that searching for a div is a matter of seraching less than 40 instead of less than 1600!
+        // Return a cached JQuery selection of the specified cell.
+        var accessHandleTo = function ( x, y ) {            
             var s = '#' + x + '-' + y;
             // console.log( 'accessHandleTo: ' + $rowCache[y].attr('id') + ' trying to find ' + s + ' yields ' + $rowCache[y].find(s).attr('id') );
             return $rowCache[y].find( s );
@@ -65,16 +66,13 @@ $(function() {
 
         var showSnake = function( snake ) {
             var x,y;
-            var s = '';
             var $elt;
 
-            eraseSnake();
-            for ( var i = 0; i < snake.length; i += 1 ) {
-                console.log( 'length of snake ' + snake.length );                
-                x = snake[i][0];
-                y = snake[i][1];
-                s = '#' + x + '-' + y;
-                console.log( 'showSnake() -' + i + ', spot:' + s );
+            eraseSnake();                                       // First erase last rounds display of the snake
+
+            for ( var i = 0; i < snake.length; i += 1 ) {           
+                x = snake[i][0];        y = snake[i][1];
+                // console.log( 'showSnake() -' + i + ', spot:' + '#' + x + '-' + y );
                 $elt = accessHandleTo( x, y );                  // instead of simply getting at div via $(s), accessHandleTo() uses cache system 
                 snakeCells.push( [x, y, $elt] );                // $elt is saved so that it can quickly be accessed when erasing snake
                 $elt.addClass( "cell-snake" );
@@ -83,7 +81,7 @@ $(function() {
 
 
         var eatFood = function() {
-            foodCell[2].removeClass( 'cell-food' ); // .addClass( 'cell-empty' );
+            foodCell[2].removeClass( 'cell-food' ); 
         };
 
 
@@ -111,8 +109,6 @@ $(function() {
 
         var callUponKeypress = function( callback ) {
             $( document ).keydown( function( event ) {
-                // lastKeyPress = String.fromCharCode( event.which );
-                // console.log ( "keyboard: " + event.which + '--' + String.fromCharCode( event.which ) );
                 lastKeyPress = event.which;
                 callback( lastKeyPress );
             });
@@ -125,7 +121,19 @@ $(function() {
     }();
 
 
+
+    /*
+     * The main game object
+     */
+
     var snake = function() {
+        // Game Constants
+        var gameDimensions = 40;    // Number of rows and columns that make up the game grid
+        var initialSpeed = 150;     // Starting spped of game  (higher numbers are slower)
+        var maxSpeed = 20;          // Fastest game can go
+        var foodValue = 10;         // How much to increase score by each time food is eaten
+
+        // Private Vars
         var coords = [];            // Snake data structure is an array of coordinates
         var snakeSize = 0;          // How long the snake is.
         var boardSize = 0;          // The snake also handles dealing with the board... to keep things simple.
@@ -145,18 +153,13 @@ $(function() {
                     case 27:
                         window.clearTimeout( timeoutID );       // game kill switch
                         return;
-
                     case 38:
-                        console.log('up');
                         break;
                     case 39:
-                        console.log('right');
                         break;
                     case 40:
-                        console.log('down');
                         break;
                     case 37:
-                        console.log('left');
                         break;
                     case 32:
                         console.log('space');
@@ -193,7 +196,7 @@ $(function() {
             direction = 0;                      // Not moving yet.
             bStarted = false;
             score = 0;
-            speed = 100;                        // Initial starting speed of game
+            speed = initialSpeed;                        // Initial starting speed of game
             foodAvailable = false;
             displayer.showStats( score, speed );
         };
@@ -211,19 +214,19 @@ $(function() {
 
             switch ( direction ) {
                 case 38:
-                    y -= 1;     console.log('up');
+                    y -= 1;     // console.log('up');
                     break;
                 case 39:
-                    x += 1;     console.log('right');
+                    x += 1;     // console.log('right');
                     break;
                 case 40:
-                    y += 1;     console.log('down');
+                    y += 1;     // console.log('down');
                     break;
                 case 37:
-                    x -= 1;     console.log('left');
+                    x -= 1;     // console.log('left');
                     break;
                 case 32:
-                    console.log('space');
+                    console.log('space');   // TODO: pause game
                     break;                                                                             
                 default:
                     // all non-direction keys should leave direction as what it was
@@ -247,7 +250,7 @@ $(function() {
 
 
         var takeTurn = function() {
-            console.log('takeTurn() called at this speed: ' + speed );
+            //  console.log('takeTurn() called at this speed: ' + speed );
             var foundASpotForFood = false;
             var tailX, tailY;
             var nextCell = [];
@@ -267,27 +270,29 @@ $(function() {
                 displayer.showFoodAt( foodX, foodY );
             }
 
-            tailX = coords[ coords.length - 1 ][ 0 ];  tailY = coords[ coords.length - 1 ][ 1 ];
+            // tailX = coords[ coords.length - 1 ][ 0 ];  tailY = coords[ coords.length - 1 ][ 1 ];
             nextCell = nextCellToGoTo( true );
             coords.unshift( nextCell );            
 
-            if ( nextCell[ 0 ] === foodX && nextCell[ 1 ] === foodY ) {  // check to see if snake head is on the food
-                score += 10;
-                speed = ( speed > 20 ) ? Math.floor( speed * 0.9 ) : 20;
+            // Check snake-head and food collision (to eat the food) 
+            if ( nextCell[ 0 ] === foodX && nextCell[ 1 ] === foodY ) {  
+                score += foodValue;
+                speed = ( speed > maxSpeed ) ? Math.floor( speed * 0.9 ) : maxSpeed;
                 displayer.eatFood();
                 displayer.showStats( score, speed );
-                foodAvailable = false;
+                foodAvailable = false;                                  // so that new food is generated next call to takeTurn()
             }
             else {
-                coords.pop();
+                coords.pop();                   // No food eaten, last entry is the tail which needs to disapper to simulate movement
             }
 
             displayer.showSnake( coords );
+
             timeoutID = window.setTimeout( takeTurn, speed );
         };
 
 
-        init(40);
+        init( gameDimensions );
 
         return {
             init : init,
