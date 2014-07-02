@@ -10,7 +10,7 @@ $(function() {
         var $playarea = $('#playarea');         // Cache access to game play area                             
         var $score = $('#score');
         var $rowCache = [];
-        var cellSize = 20;                      //  How big each cell is
+        var cellSize = 15;                      //  How big each cell is; smallest: 10, mid:15, largest: 20
         var snakeCells = [];
         var foodCell = [];
 

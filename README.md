@@ -1,4 +1,4 @@
-## Yet another Snake game implementation
+## Yet another Snake game implementation - 
 
 #### An Odin Project challenge to flex some JS, JQuery, ...
 
@@ -34,6 +34,8 @@ Somewhat prioritized TODO list:
 - Don't let snake go over itself
 
 - Implement button to make 'Deadly Edges'
+
+- Add an optional grid overlay to the playarea
 
 - Implement a way to resize play area  (and have images/effects scale well)
 
