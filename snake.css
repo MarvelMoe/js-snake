@@ -59,14 +59,18 @@ fieldset {
 	border: 3px solid #777;
 	margin: 50px auto;
 	position: relative;
+	background: #444;
+
 }
+
 
 
 .cell {
 	position: absolute;
 	/* display: inline-block;  */
-	background: #ccc;
+	/* background: #ccc;  */
 	margin: 0;
+
 }
 
 
@@ -76,11 +80,16 @@ fieldset {
 }
 
 .cell-snake {
-	background: red;
+	/* background: red; */
+	background: url(./img/body1.png) no-repeat;		background-size: cover;
+}
+
+.snakehead {
+	background: url(./img/head2.png) no-repeat;	background-size: cover;
 }
 
 .cell-food {
-	background: green;
+	/* background: green; */	background-size: cover;
 }
 
 .shadow {

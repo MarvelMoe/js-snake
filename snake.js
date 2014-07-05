@@ -4,13 +4,17 @@
  */
 
 $(function() {
+    var getRandomInt = function(min, max) {
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+    };
+
 
     // Displays the game.  The 'View' of this app; tied to implementation via JQuery.
     var displayer = function() {
         var $playarea = $('#playarea');         // Cache access to game play area                             
         var $score = $('#score');
         var $rowCache = [];
-        var cellSize = 15;                      //  How big each cell is; smallest: 10, mid:15, largest: 20
+        var cellSize = 20;                      //  How big each cell is; smallest: 10, mid:15, largest: 20
         var snakeCells = [];
         var foodCell = [];
 
@@ -50,6 +54,7 @@ $(function() {
         var eraseSnake = function() {
             for ( var i = 0; i < snakeCells.length; i += 1 ) {
                 snakeCells[i][2].removeClass( 'cell-snake' );               // stored JQuery selector of this piece
+                snakeCells[i][2].removeClass( "snakehead");
                 snakeCells.splice(i, 1);                                    // take this element out of the array
             }            
         };
@@ -76,19 +81,28 @@ $(function() {
                 $elt = accessHandleTo( x, y );                  // instead of simply getting at div via $(s), accessHandleTo() uses cache system 
                 snakeCells.push( [x, y, $elt] );                // $elt is saved so that it can quickly be accessed when erasing snake
                 $elt.addClass( "cell-snake" );
+                if ( i === 0 ) {
+                    $elt.addClass( "snakehead" ); 
+                }
+                else { $elt.removeClass( "snakehead"); }
             }
         };
 
 
         var eatFood = function() {
-            foodCell[2].removeClass( 'cell-food' ); 
+            foodCell[2].removeClass( 'cell-food' ); // 
+            foodCell[2].css( 'background', '' );
         };
 
 
         var showFoodAt = function( x, y ) {
             var $elt = accessHandleTo( x, y );
+            var fname = 'url(img/food' + getRandomInt(1,5) + '.png) no-repeat top left';
+
             foodCell = [ x, y, $elt ];
             $elt.addClass( 'cell-food' );
+            $elt.css('background', fname);
+            $elt.css('background-size', 'contain');
         };
 
 
@@ -250,9 +264,7 @@ $(function() {
         };
 
 
-        var getRandomInt = function(min, max) {
-            return Math.floor(Math.random() * (max - min + 1)) + min;
-        };
+
 
 
         var takeTurn = function() {
