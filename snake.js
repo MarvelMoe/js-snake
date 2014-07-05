@@ -102,7 +102,7 @@ $(function() {
 
         var showFoodAt = function( x, y ) {
             var $elt = accessHandleTo( x, y );
-            var fname = 'url(img/food' + getRandomInt(1,5) + '.png) no-repeat top left';
+            var fname = 'url( img/food' + getRandomInt( 1,6 ) + '.png ) no-repeat top left';
 
             foodCell = [ x, y, $elt ];
             $elt.addClass( 'cell-food' );

@@ -27,9 +27,9 @@ In the interest of simplicity, I tried to keep the project to a minimum.   It's 
 
 Somewhat prioritized TODO list:
 
-- Fix score display
+- ~~Fix score display~~
 
-- Fix speed display
+- ~~Fix speed display~~
 
 - Don't let snake go over itself
 

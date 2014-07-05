@@ -5,7 +5,7 @@
 }
 
 body {
-	background: url(../img/snakeskin1.jpg) repeat;
+	background: url(../img/bkgd1.jpg) repeat;
 	font-family: 'Lucida Grande', Helvetica, Arial, Sans-Serif;
 }
 
@@ -59,7 +59,7 @@ fieldset {
 	border: 3px solid #777;
 	margin: 50px auto;
 	position: relative;
-	background: #444;
+	background: url('../img/island1.jpg') no-repeat; /* #444; */
 
 }
 
