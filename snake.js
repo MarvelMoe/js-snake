@@ -14,7 +14,7 @@ $(function() {
         var $playarea = $('#playarea');         // Cache access to game play area                             
         var $score = $('#score');
         var $rowCache = [];
-        var cellSize = 20;                      //  How big each cell is; smallest: 10, mid:15, largest: 20
+        var cellSize = 15;                      //  How big each cell is; smallest: 10, mid:15, largest: 20
         var snakeCells = [];
         var foodCell = [];
 
@@ -47,6 +47,10 @@ $(function() {
 
         var showStats = function( score, speed ) {                           // Put up game stats
             $score.text( 'Score: ' + score + ' -- Speed: ' + speed );
+            $score.addClass('animated pulse')
+                .one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function() {
+                    $(this).removeClass('animated pulse');
+                });
         };
 
 
@@ -92,6 +96,7 @@ $(function() {
         var eatFood = function() {
             foodCell[2].removeClass( 'cell-food' ); // 
             foodCell[2].css( 'background', '' );
+            $( '.cell-snake' ).addClass('animated rubberBand');
         };
 
 
@@ -101,8 +106,10 @@ $(function() {
 
             foodCell = [ x, y, $elt ];
             $elt.addClass( 'cell-food' );
-            $elt.css('background', fname);
-            $elt.css('background-size', 'contain');
+            $elt.css('background', fname)
+                .css( 'background-size', cellSize + 'px' )
+                .addClass( 'animated rotateIn' );
+
         };
 
 
@@ -294,10 +301,10 @@ $(function() {
 
             // Check snake-head and food collision (to eat the food) 
             if ( nextCell[ 0 ] === foodX && nextCell[ 1 ] === foodY ) {  
-                score += foodValue;
+                score = score + foodValue + Math.floor( score * .1 );
                 speed = ( speed > maxSpeed ) ? Math.floor( speed * 0.95 ) : maxSpeed;
                 displayer.eatFood();
-                displayer.showStats( score, speed );
+                displayer.showStats( score, ( 350 - speed ) );
                 foodAvailable = false;                                  // so that new food is generated next call to takeTurn()
             }
             else {
