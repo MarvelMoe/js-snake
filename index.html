@@ -14,14 +14,11 @@
 	<header>
 		<h1>Yet Another Javascript Snake Game!</h1>
 		<h4>By <a href="https://afshin.herokuapp.com" target="_blank">Afshin Mokhtari</a></h4>
-		<p><small>An <a href="http://www.theodinproject.com/javascript-and-jquery/jquery-and-the-dom" target="_blank">Odin Project challenge</a>,
+		<p><small>An <a href="http://www.theodinproject.com/javascript-and-jquery/jquery-and-the-dom" target="_blank">Odin Project challenge</a>, - 
 		<a href="https://github.com/afshinator/js-snake" target="_blank">source code</a>.</small>
 		</p>
-	</header>
-
-	<section>
-		<div id = "gameinfo">
 			<div id = "instructions">
+				<p style="text-align:center;">.</p>
 				<small>
 					<strong>Return/Enter</strong> to begin</br>
 					Use <strong>Arrow keys</strong> to turn direction</br>
@@ -29,18 +26,22 @@
 				</small>
 
 			</div>
-			<div id = "gameStats" class = "shadow" >
-				<p class = "bigBold" ><span id = "score" >Score: -- Speed: </span></p>
+	</header>
 
-				<form id = "optionCheckboxes" >
-					<fieldset>
-					<legend></legend>
-					<input type="checkbox" name="edges" value="noEdges" /> Deadly Edges<br />
-					<input type="checkbox" name="sound" value="soundOn" /> Sound<br />
-					</fieldset>
-				</form>				
-			</div>
+	<section>
+		<div id = "gameStats" class = "shadow" >
+			<p class = "bigBold" ><span id = "score" >Score: -- Speed: </span></p>
+
+			<form id = "optionCheckboxes" >
+				<fieldset>
+				<legend></legend>
+				<input type="checkbox" name="edges" value="noEdges" /> Deadly Edges<br />
+				<input type="checkbox" name="sound" value="soundOn" /> Sound<br />
+				</fieldset>
+				<span id='gameMsg'></span>
+			</form>				
 		</div>
+
 		<div id = "playarea" class = "shadow" ></div>
 	</section>
 
@@ -48,6 +49,3 @@
 	<script type="text/javascript" src="snake.js"></script>
 </body>
 </html>
-
-
-

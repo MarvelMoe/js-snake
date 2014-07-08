@@ -13,6 +13,7 @@ $(function() {
     var displayer = function() {
         var $playarea = $('#playarea');         // Cache access to game play area                             
         var $score = $('#score');
+        var $gameMsg = $('#gameMsg');
         var $rowCache = [];
         var cellSize = 15;                      //  How big each cell is; smallest: 10, mid:15, largest: 20
         var snakeCells = [];
@@ -41,12 +42,24 @@ $(function() {
         };
 
 
-        var reset = function() {
-            eraseSnake();
+        var msg = function( txt ) {
+            $gameMsg.html( txt );            
+        };
+
+
+        var gameOver = function( score, speed ) {
+            $gameMsg.html('<h3>Game Over</h3>');                
+            // After a little pause, make the score shake
+            timeoutID = window.setTimeout( function(){
+                $score.addClass('animated shake')                
+                    .one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function() {
+                        $(this).removeClass('animated shake');
+                    });                
+                }, 350 );
         };
 
         var showStats = function( score, speed ) {                           // Put up game stats
-            $score.text( 'Score: ' + score + ' -- Speed: ' + speed );
+            $score.text( 'Score: ' + score + ' - Speed: ' + speed );
             $score.addClass('animated pulse')
                 .one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function() {
                     $(this).removeClass('animated pulse');
@@ -115,7 +128,8 @@ $(function() {
 
         return {
             init : init,
-            reset : reset,
+            msg : msg,
+            gameOver : gameOver,
             showStats : showStats,
             showSnake : showSnake,
             showFoodAt : showFoodAt,
@@ -160,6 +174,7 @@ $(function() {
         var boardSize = 0;          // The snake also handles dealing with the board... to keep things simple.
         var direction;              // 0 = center (not moving), 
         var bStarted;               // Whether the game has started
+        var bGameOver;              // Whether something has game to be over
         var score;
         var speed;
         var foodAvailable;          // True when a food has been put on the board
@@ -214,6 +229,7 @@ $(function() {
             boardSize = size;
             reset();
             input.captureKeyStroke( handleKeyStroke );
+            displayer.msg( 'Enter to begin' );
         };
 
 
@@ -231,7 +247,14 @@ $(function() {
         var start = function() {
             timeoutID = window.setTimeout( takeTurn, speed );
             bStarted = true;
+            bGameOver = false;
             direction = 39;         // default direction to the right when game starts
+            displayer.msg('<h4>Game on!</h4>');
+        };
+
+
+        var gameOver = function() {
+            displayer.gameOver( score, speed );
         };
 
 
@@ -267,10 +290,23 @@ $(function() {
                 else if ( y > ( boardSize - 1 ) ) { y = 0; }
             }
 
+            // Check for collisions
+            if ( isASnakeCoordinate( x, y ) ) {
+                console.log( 'Coordinate ' + x + ', ' + y + ' spells death for our snake.' );
+                bGameOver = true;  // gameOver();
+            }
+
             return [ x, y ];
         };
 
 
+        // Return true if coords passed in match any of the coords of the current snake;
+        // Used to detect snake collision with itself, and also to see if snakehead hit some food.
+        var isASnakeCoordinate = function( x, y ) {
+            for ( var i = 0; i < coords.length; i++ ) {
+                if ( coords[i][0] === x && coords[i][1] === y ) { return true; }
+            }            
+        };
 
 
 
@@ -282,13 +318,13 @@ $(function() {
 
             if ( ! foodAvailable ) {                // If no food on the board, pick a random place to put it
                 while ( ! foundASpotForFood ) {
-                    foodX = getRandomInt( 0, boardSize - 1 );
-                    foodY = getRandomInt( 0, boardSize - 1 );
+                    foodX = getRandomInt( 1, boardSize - 2 );
+                    foodY = getRandomInt( 1, boardSize - 2 );
 
                     foundASpotForFood = true;
-                    for ( var i = 0; i < coords.length; i++ ) {
-                        if ( coords[i][0] === foodX && coords[i][1] === foodY ) { foundASpotForFood = false; }
-                    }
+
+                    // make sure we're not going to be putting food somewhere on the snake
+                    if ( isASnakeCoordinate( foodX, foodY ) ) { foundASpotForFood = false; }
                 } 
 
                 foodAvailable = true;
@@ -313,7 +349,11 @@ $(function() {
 
             displayer.showSnake( coords );
 
-            timeoutID = window.setTimeout( takeTurn, speed );
+            if ( ! bGameOver ) {
+                timeoutID = window.setTimeout( takeTurn, speed );
+            } else {
+                gameOver();
+            }
         };
 
 
