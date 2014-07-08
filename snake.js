@@ -145,6 +145,7 @@ $(function() {
     var input = function() {
         var $deadlyEdges = $( '#edges-checkbox' );
         var $sound = $( '#sound-checkbox' );
+        var $playarea = $('#playarea');          
         var lastKeyPress = 0;
 
         var callUponKeypress = function( callback ) {
@@ -155,9 +156,14 @@ $(function() {
         };
 
 
-
+        // Set variable based on checkbox
         $deadlyEdges.change(function() {
             deadlyEdges = $( this ).is( ':checked' );
+            if ( deadlyEdges ) { 
+                $playarea.css('border', '3px solid red');
+            } else {
+                $playarea.css('border', '3px solid rgba(205,235,142,1)');
+            }
         });
 
 
@@ -241,7 +247,7 @@ $(function() {
             boardSize = size;
             reset();
             input.captureKeyStroke( handleKeyStroke );
-            displayer.msg( 'Enter to begin' );
+            displayer.msg( '<strong>Enter to begin</strong>' );
         };
 
 
