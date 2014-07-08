@@ -4,6 +4,9 @@
  */
 
 $(function() {
+    var deadlyEdges = false;
+    var sound = false;
+
     var getRandomInt = function(min, max) {
         return Math.floor(Math.random() * (max - min + 1)) + min;
     };
@@ -138,8 +141,10 @@ $(function() {
     }();
 
 
-    // Get input from keyboard
+    // Get input from keyboard; deal with checkboxes
     var input = function() {
+        var $deadlyEdges = $( '#edges-checkbox' );
+        var $sound = $( '#sound-checkbox' );
         var lastKeyPress = 0;
 
         var callUponKeypress = function( callback ) {
@@ -148,6 +153,13 @@ $(function() {
                 callback( lastKeyPress );
             });
         };
+
+
+
+        $deadlyEdges.change(function() {
+            deadlyEdges = $( this ).is( ':checked' );
+        });
+
 
         return {
             lastkey : lastKeyPress,
@@ -254,11 +266,13 @@ $(function() {
 
 
         var gameOver = function() {
+            bGameOver = true;
             displayer.gameOver( score, speed );
+            window.clearTimeout( timeoutID );
         };
 
 
-        var nextCellToGoTo = function( allowWrapAround ) {    // Returns where the head of the snake would go given current direction
+        var nextCellToGoTo = function( disallowWrapAround ) {    // Returns where the head of the snake would go given current direction
             var x = coords[0][0];
             var y = coords[0][1];
 
@@ -283,14 +297,15 @@ $(function() {
                     console.log( "funky number in nextCellToGoTo :" + direction );               
             }
 
-            if ( allowWrapAround ) {
-                if ( x > ( boardSize - 1 ) ) { x = 0; }
-                else if ( x < 0 ) { x = ( boardSize - 1 ); }
-                else if ( y < 0 ) { y = ( boardSize - 1 ); }
-                else if ( y > ( boardSize - 1 ) ) { y = 0; }
-            }
 
-            // Check for collisions
+            // Check for hitting edges
+            if ( x > ( boardSize - 1 ) ) { x = 0; if ( disallowWrapAround ) { gameOver(); } }
+            else if ( x < 0 ) { x = ( boardSize - 1 );  if ( disallowWrapAround ) { gameOver();  } }
+            else if ( y < 0 ) { y = ( boardSize - 1 );  if ( disallowWrapAround ) { gameOver();  } }
+            else if ( y > ( boardSize - 1 ) ) { y = 0;  if ( disallowWrapAround ) { gameOver();  } }
+
+
+            // Check for snake going over itself
             if ( isASnakeCoordinate( x, y ) ) {
                 console.log( 'Coordinate ' + x + ', ' + y + ' spells death for our snake.' );
                 bGameOver = true;  // gameOver();
@@ -332,7 +347,7 @@ $(function() {
             }
 
             // tailX = coords[ coords.length - 1 ][ 0 ];  tailY = coords[ coords.length - 1 ][ 1 ];
-            nextCell = nextCellToGoTo( true );
+            nextCell = nextCellToGoTo( deadlyEdges );
             coords.unshift( nextCell );            
 
             // Check snake-head and food collision (to eat the food) 
@@ -347,9 +362,9 @@ $(function() {
                 coords.pop();                   // No food eaten, last entry is the tail which needs to disapper to simulate movement
             }
 
-            displayer.showSnake( coords );
 
             if ( ! bGameOver ) {
+                displayer.showSnake( coords );
                 timeoutID = window.setTimeout( takeTurn, speed );
             } else {
                 gameOver();
