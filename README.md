@@ -4,7 +4,7 @@
 
 ![alt text](./img/screenshot.jpg "JS- screen shot")
 
-- Idea from <a href="http://www.theodinproject.com/javascript-and-jquery/jquery-and-the-dom" target="_blank">this Odin Project challenge.</a>
+- Idea from <a href="http://www.theodinproject.com/javascript-and-jquery/jquery-and-the-dom" target="_blank">this Odin Project challenge</a>.
 
 - Live preview [here](http://htmlpreview.github.io/?https://github.com/afshinator/js-snake/blob/master/index.html)
 
