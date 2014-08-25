@@ -42,10 +42,3 @@ Somewhat prioritized TODO list:
 - Add graphic images to snake body & food
 
 	At first simple images, then animated 
-
-
-
-
-
-
-
