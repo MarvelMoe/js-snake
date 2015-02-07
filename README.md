@@ -6,7 +6,7 @@
 
 - Idea from <a href="http://www.theodinproject.com/javascript-and-jquery/jquery-and-the-dom" target="_blank">this Odin Project challenge</a>.
 
-- Live preview [here](http://htmlpreview.github.io/?https://github.com/afshinator/js-snake/blob/master/index.html) - though for some people are telling me it doesnt work?
+- Live preview [here](http://htmlpreview.github.io/?https://github.com/afshinator/js-snake/blob/master/index.html) - though sometimes that link fails!! hmmm,  just keep trying, it seems to eventually work.
 
 **Details:**
 
@@ -18,14 +18,16 @@ The challenge calls for :
 
 - Using multiple div html element for the grid play area.
 
-	To get by ineffeciencies such as searching through a possible 1600 divs for the correct one, I implement a cache systems that cuts that number down to at most a search of 40.
+	To get by ineffeciencies such as searching through a possible 1600 divs for the correct one, I implement a cache system that cuts that number down to at most a search of 40.
 
-In the interest of simplicity, I tried to keep the project to a minimum.   It's tempting to want to make the presentation of the Snake much nicer, with more animation, etc...  but the goal of the exercise is to implement the algorithm that runs the game.   Since the implementation of the UI involves div's; I went out of my way to implment a simple caching system so that searching the DOM for one of a possible 40 * 40 = 1600 cells is not so in-efficient; without which I really would've wanted instead to use canvas or something else.
+In the interest of simplicity, I tried to keep the project to a minimum.   It's tempting to want to make the presentation of the snake much nicer, with more animation, etc...  but the goal of the exercise is to implement the algorithm that runs the game.   Since the implementation of the UI involves div's; I went out of my way to implement a simple caching system so that searching the DOM for one of a possible 40 * 40 = 1600 cells is not so in-efficient; without which I really would've wanted instead to use canvas or something else.
 
 ---
 
 
 Somewhat prioritized TODO list:
+
+- Add sound!
 
 - ~~Fix score display~~
 
