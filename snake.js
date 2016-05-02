@@ -165,6 +165,14 @@ $(function() {
                 $playarea.css('border', '3px solid rgba(205,235,142,1)');
             }
         });
+        
+           // Play sound on checkbox selection
+        $sound.change(function(){
+           var audio = document.createElement("audio");
+           audio.setAttribute("src", "music.mp3");
+           audio.play() = this.checked 
+});
+   
 
 
         return {
